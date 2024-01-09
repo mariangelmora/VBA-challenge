@@ -1,4 +1,4 @@
-Add functionality to your script to return the stock with the "Greatest % increase", "Greatest % decrease", and "Greatest total volume"
+'Add functionality to your script to return the stock with the "Greatest % increase", "Greatest % decrease", and "Greatest total volume"
 Sub tickerSymbol()
 
     ' Name the cells

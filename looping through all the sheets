@@ -1,3 +1,4 @@
+'Make the appropriate adjustments to your VBA script to enable it to run on every worksheet (that is, every year) at once.
 Sub tickerSymbol()
 
     ' Name the cells

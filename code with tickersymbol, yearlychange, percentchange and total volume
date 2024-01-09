@@ -1,0 +1,66 @@
+'Create a script that loops through all the stocks for one year and outputs the following information:
+'The ticker symbol
+'Yearly change from the opening price at the beginning of a given year to the closing price at the end of that year.
+'The percentage change from the opening price at the beginning of a given year to the closing price at the end of that year.
+'The total stock volume of the stock
+
+Sub tickerSymbol()
+
+    ' Name the cells
+    Cells(1, 9).Value = "Ticker"
+    Cells(1, 10).Value = "Yearly Change"
+    Cells(1, 11).Value = "Percent Change"
+    Cells(1, 12).Value = "Total Stock Volume"
+
+    ' Declare variables
+    Dim tickerSymbol As String
+    Dim yearlyChange As Double
+    Dim percentChange As Double
+    Dim totalVolume As Double
+
+    Dim summaryTableRow As Integer
+    
+    'set to start from row number 2
+    summaryTableRow = 2
+    Dim openPrice As Double
+    openPrice = Cells(2, 3).Value
+    Dim closePrice As Double
+
+    ' Function to go to the last row
+    lastRow = Cells(Rows.Count, 1).End(xlUp).Row
+
+    'find the tickersymbol, totalvolume, yearly change and percent change
+        For i = 2 To lastRow
+        
+            ' Check if we are still within the same ticker, if it is not...
+            If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+
+                'locate the close price and ticker symbol
+                closePrice = Cells(i, 6).Value
+                tickerSymbol = Cells(i, 1).Value
+                
+                'calculate yearkychange
+                yearlyChange = closePrice - openPrice
+                percentChange = yearlyChange / openPrice * 100
+                
+                'print the values to the summary table
+                Range("I" & summaryTableRow).Value = tickerSymbol
+                Range("L" & summaryTableRow).Value = totalVolume + Cells(i, 7).Value
+                Range("J" & summaryTableRow).Value = yearlyChange
+                Range("K" & summaryTableRow).Value = percentChange
+                
+            
+                openPrice = Cells(i + 1, 3).Value
+
+                'reset to 0
+                totalVolume = 0
+                
+                summaryTableRow = summaryTableRow + 1
+            Else
+            
+                'calculate the total volume
+                totalVolume = totalVolume + Cells(i, 7).Value
+                
+            End If
+    Next i
+End Sub
